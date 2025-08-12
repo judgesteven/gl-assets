@@ -1,0 +1,34 @@
+{
+  "name": "gamelayer-mission-card",
+  "version": "1.0.0",
+  "description": "A complete, self-contained mission card component for GameLayer gamification platforms",
+  "main": "mission.js",
+  "scripts": {
+    "demo": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "gamelayer",
+    "gamification",
+    "mission-card",
+    "ui-component",
+    "mobile-first",
+    "responsive",
+    "ios-inspired"
+  ],
+  "author": "GameLayer Assets",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevenjudge/gl-assets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stevenjudge/gl-assets/issues"
+  },
+  "homepage": "https://github.com/stevenjudge/gl-assets#readme",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

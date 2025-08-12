@@ -1,0 +1,500 @@
+/* Mission Card Styles - Extends assets.css */
+
+.mission-card {
+  width: 100%;
+  max-width: 320px;
+  background: var(--gl-white);
+  border-radius: var(--gl-radius-lg);
+  box-shadow: var(--gl-shadow-sm);
+  overflow: hidden;
+  transition: var(--gl-transition);
+  border: 1px solid var(--gl-gray-200);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.mission-card:hover {
+  box-shadow: var(--gl-shadow-lg);
+  transform: translateY(-4px);
+}
+
+.mission-card__image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, var(--gl-primary), var(--gl-secondary));
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 200px;
+}
+
+.mission-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Rewards Overlay - On Top of Image */
+.mission-card__rewards-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--gl-spacing-3);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, transparent 50%, rgba(0, 0, 0, 0.3) 100%);
+  color: var(--gl-white);
+  z-index: 3;
+  align-items: flex-end;
+  gap: var(--gl-spacing-1);
+}
+
+.mission-card__reward {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: right;
+  gap: var(--gl-spacing-2);
+  width: auto;
+  justify-content: flex-end;
+}
+
+.mission-card__reward-value {
+  font-size: var(--gl-font-size-lg);
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.mission-card__reward-label {
+  font-size: 1.25rem;
+  font-weight: 500;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  transition: transform 0.2s ease;
+}
+
+.mission-card__reward:hover .mission-card__reward-label {
+  transform: scale(1.1);
+}
+
+.mission-card__image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: var(--gl-white);
+  font-size: 4rem;
+  font-weight: 600;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.mission-card:hover .mission-card__image-placeholder {
+  transform: scale(1.1);
+}
+
+/* Real Mission Image */
+.mission-card__real-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Category Overlay - Lower Left */
+.mission-card__category-overlay {
+  position: absolute;
+  bottom: var(--gl-spacing-3);
+  left: var(--gl-spacing-3);
+  background: var(--gl-secondary);
+  color: var(--gl-white);
+  padding: var(--gl-spacing-1) var(--gl-spacing-3);
+  border-radius: var(--gl-radius-2xl);
+  font-size: var(--gl-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mission-card__content {
+  padding: var(--gl-spacing-3);
+}
+
+.mission-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-spacing-3);
+  margin-bottom: var(--gl-spacing-3);
+}
+
+.mission-card__title {
+  font-size: var(--gl-font-size-lg);
+  font-weight: 700;
+  color: var(--gl-gray-900);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.mission-card__description {
+  font-size: var(--gl-font-size-sm);
+  color: var(--gl-gray-600);
+  line-height: 1.4;
+  margin-bottom: var(--gl-spacing-3);
+}
+
+.mission-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gl-spacing-2);
+  margin-bottom: var(--gl-spacing-3);
+}
+
+/* Progress Bar */
+.mission-card__progress {
+  margin-bottom: var(--gl-spacing-3);
+}
+
+.mission-card__progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gl-spacing-2);
+}
+
+.mission-card__progress-text {
+  font-size: var(--gl-font-size-xs);
+  font-weight: 600;
+  color: var(--gl-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mission-card__progress-value {
+  font-size: var(--gl-font-size-sm);
+  font-weight: 700;
+  color: var(--gl-primary);
+}
+
+.mission-card__progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--gl-gray-200);
+  border-radius: var(--gl-radius-sm);
+  overflow: hidden;
+}
+
+.mission-card__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gl-primary), var(--gl-secondary));
+  border-radius: var(--gl-radius-sm);
+  transition: width 0.3s ease;
+}
+
+.mission-card__category {
+  background: var(--gl-secondary);
+  color: var(--gl-white);
+  padding: var(--gl-spacing-1) var(--gl-spacing-3);
+  border-radius: var(--gl-radius-2xl);
+  font-size: var(--gl-font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+
+.mission-card__timer {
+  background: var(--gl-warning);
+  color: var(--gl-white);
+  padding: var(--gl-spacing-2) var(--gl-spacing-3);
+  border-radius: var(--gl-radius-2xl);
+  text-align: center;
+  font-weight: 600;
+  font-size: var(--gl-font-size-sm);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mission-card__timer--urgent {
+  background: var(--gl-danger);
+  border-radius: var(--gl-radius-2xl);
+  animation: pulse 2s infinite;
+}
+
+.mission-card__timer--expired {
+  background: var(--gl-gray-500);
+  border-radius: var(--gl-radius-2xl);
+}
+
+.mission-card__actions {
+  display: flex;
+  gap: var(--gl-spacing-2);
+}
+
+.mission-card__btn {
+  flex: 1;
+  padding: var(--gl-spacing-2) var(--gl-spacing-3);
+  font-size: var(--gl-font-size-xs);
+  font-weight: 600;
+  border-radius: var(--gl-radius-2xl);
+  border: none;
+  cursor: pointer;
+  transition: var(--gl-transition);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gl-spacing-1);
+  height: 40px;
+}
+
+.mission-card__btn--primary {
+  background: var(--gl-primary);
+  color: var(--gl-white);
+}
+
+.mission-card__btn--primary:hover {
+  background: #0056CC;
+  transform: translateY(-1px);
+  box-shadow: var(--gl-shadow-md);
+}
+
+.mission-card__btn--secondary {
+  background: var(--gl-gray-200);
+  color: var(--gl-gray-700);
+}
+
+.mission-card__btn--secondary:hover {
+  background: var(--gl-gray-300);
+  transform: translateY(-1px);
+}
+
+.mission-card__btn--disabled {
+  background: var(--gl-gray-300);
+  color: var(--gl-gray-500);
+  cursor: not-allowed;
+}
+
+.mission-card__btn--disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.mission-card__btn:disabled {
+  background: var(--gl-gray-300);
+  border-color: var(--gl-gray-300);
+  color: var(--gl-gray-500);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.mission-card__btn:disabled:hover {
+  background: var(--gl-gray-300);
+  border-color: var(--gl-gray-300);
+  color: var(--gl-gray-500);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Mission Grid Layout */
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gl-spacing-4);
+  padding: var(--gl-spacing-4);
+}
+
+/* Mission List Layout */
+.mission-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gl-spacing-4);
+  padding: var(--gl-spacing-4);
+}
+
+.mission-list .mission-card {
+  max-width: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.mission-list .mission-card__image {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+.mission-list .mission-card__rewards-overlay {
+  padding: var(--gl-spacing-2);
+}
+
+.mission-list .mission-card__reward-value {
+  font-size: var(--gl-font-size-base);
+}
+
+.mission-list .mission-card__reward-label {
+  font-size: 1rem;
+}
+
+.mission-list .mission-card__reward {
+  gap: var(--gl-spacing-1);
+}
+
+.mission-list .mission-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mission-card {
+    max-width: none;
+  }
+  
+  .mission-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gl-spacing-4);
+    padding: var(--gl-spacing-4);
+  }
+  
+  .mission-list .mission-card {
+    flex-direction: column;
+  }
+  
+  .mission-list .mission-card__image {
+    width: 100%;
+    height: 150px;
+  }
+  
+
+  
+  .mission-card__actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .mission-grid {
+    grid-template-columns: 1fr;
+    gap: var(--gl-spacing-4);
+    padding: var(--gl-spacing-4);
+  }
+  
+  .mission-card__meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .mission-card__rewards-overlay {
+    padding: var(--gl-spacing-2);
+  }
+  
+  .mission-card__reward-value {
+    font-size: var(--gl-font-size-base);
+  }
+  
+  .mission-card__reward-label {
+    font-size: 1rem;
+  }
+  
+  .mission-card__reward {
+    gap: var(--gl-spacing-1);
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Mission States */
+.mission-card--completed {
+  border-color: var(--gl-success);
+}
+
+.mission-card--completed .mission-card__image {
+  opacity: 0.7;
+}
+
+
+
+.mission-card--expired {
+  opacity: 0.6;
+}
+
+.mission-card--expired .mission-card__btn {
+  pointer-events: none;
+}
+
+/* Loading States */
+.mission-card--loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-card--loading::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Success Button State */
+.mission-card__btn--success {
+  background: var(--gl-success);
+  color: var(--gl-white);
+}
+
+.mission-card__btn--success:hover {
+  background: var(--gl-success);
+  filter: brightness(0.9);
+}
