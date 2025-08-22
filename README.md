@@ -1,297 +1,253 @@
-# GameLayer Mission Card Component
+# GameLayer Assets
 
-A complete, self-contained mission card component for GameLayer gamification platforms. This component provides a beautiful, responsive UI for displaying mission information with real-time data integration.
+A complete, production-ready demo application showcasing GameLayer's gamification platform. This repository provides ready-made UI components and integration examples that developers can use as a reference for building their own GameLayer-powered applications.
+
+## 🎯 What is GameLayer?
+
+GameLayer is a comprehensive gamification platform that provides APIs for:
+- **Player Management** - User profiles, levels, and progression
+- **Missions & Challenges** - Dynamic task creation and completion tracking
+- **Leaderboards** - Competitive rankings and social features
+- **Rewards & Achievements** - Recognition and incentive systems
+- **Real-time Updates** - Live data synchronization
 
 ## 🚀 Features
 
-- **Mobile-First Design**: iOS-inspired design language with Android compatibility
-- **Real-Time Data**: GameLayer API integration for live mission updates
-- **Multiple States**: Active, completed, upcoming, locked, and expired missions
-- **Responsive Layout**: Works seamlessly across all device sizes
-- **Event-Driven**: Custom events for easy integration with your application
-- **Accessibility**: ARIA attributes and keyboard navigation support
-- **Self-Contained**: No external dependencies required
-- **Cross-Platform**: Works on iOS, Android, and web platforms
+This demo application includes:
 
-## 📱 Screenshots
+### 📱 **Profile Component**
+- Player statistics and progress tracking
+- Level progression visualization
+- Achievement display
+- Real-time data updates
 
-The component includes three example states:
-- **Active Mission**: Daily check-in challenge with progress tracking
-- **Completed Mission**: Weekly achievement hunt with claimable rewards
-- **Urgent Mission**: Time-sensitive challenge with countdown timer
+### 🎮 **Missions Component**
+- Dynamic mission loading from API
+- Mission completion tracking
+- Progress visualization
+- Category-based organization
 
-## 🛠️ Quick Start
+### 🏆 **Leaderboard Component**
+- Real-time player rankings
+- Pagination support
+- Current user highlighting
+- Score-based sorting
 
-### 1. Download the Component
+### 🎁 **Rewards Component**
+- Available rewards display
+- Expiry date tracking
+- Stock management
+- Category filtering
 
-Download these files to your project:
-- `mission.js` - Main component logic
-- `mission.css` - Component-specific styles
-- `assets.css` - Shared design system and utilities
+## 🛠️ Technology Stack
 
-### 2. Include the Files
+- **Frontend**: Vanilla JavaScript (ES6+)
+- **Styling**: CSS3 with CSS Custom Properties
+- **API**: GameLayer REST API
+- **Build**: No build step required - pure HTML/CSS/JS
+- **Server**: Simple HTTP server (Python/Node.js)
 
-```html
-<!-- In your HTML head -->
-<link rel="stylesheet" href="assets.css">
-<link rel="stylesheet" href="mission.css">
+## 📦 Installation
 
-<!-- Before closing body tag -->
-<script src="mission.js"></script>
-```
+### Prerequisites
+- Modern web browser
+- Python 3.x or Node.js
+- GameLayer API credentials
 
-### 3. Configure Your API Credentials
+### Quick Start
 
-Update the configuration in `mission.js`:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/gamelayer/assets.git
+   cd assets
+   ```
 
-```javascript
-const GAMELAYER_CONFIG = {
-    baseURL: 'https://api.gamelayer.co/api/v0',
-    apiKey: 'your-actual-api-key-here',
-    defaultPlayer: 'your-player-id',
-    accountId: 'your-account-id',
-    debugMode: false
-};
-```
+2. **Configure your API credentials**
+   
+   Open `js/api.js` and update the configuration:
+   ```javascript
+   this.config = {
+       baseURL: 'https://api.gamelayer.co/api/v0',
+       apiKey: 'YOUR_API_KEY_HERE',
+       defaultPlayer: 'YOUR_PLAYER_ID',
+       accountId: 'YOUR_ACCOUNT_ID'
+   };
+   ```
 
-### 4. Add Mission Card HTML
+3. **Start the development server**
+   ```bash
+   # Using Python
+   python3 -m http.server 8000
+   
+   # Using Node.js
+   npx http-server -p 8000
+   ```
 
-```html
-<div class="mission-card" data-mission-id="your-mission-id">
-    <div class="mission-card__image" style="background: linear-gradient(135deg, #007AFF, #5AC8FA);">
-        <div class="mission-card__image-placeholder">🚀</div>
-        <div class="mission-card__rewards-overlay">
-            <div class="mission-card__reward">
-                <span class="mission-card__reward-label">⭐</span>
-                <span class="mission-card__reward-value">500</span>
-            </div>
-            <div class="mission-card__reward">
-                <span class="mission-card__reward-label">💎</span>
-                <span class="mission-card__reward-value">50</span>
-            </div>
-        </div>
-        <div class="mission-card__category-overlay">Daily</div>
-    </div>
-    <div class="mission-card__content">
-        <div class="mission-card__header">
-            <div class="mission-card__timer">⏰ 4 days remaining</div>
-            <h3 class="mission-card__title">Mission Title</h3>
-            <p class="mission-card__description">Mission description goes here.</p>
-        </div>
-        <div class="mission-card__progress">
-            <div class="mission-card__progress-info">
-                <span class="mission-card__progress-text">Progress</span>
-                <span class="mission-card__progress-value">3/7</span>
-            </div>
-            <div class="mission-card__progress-bar">
-                <div class="mission-card__progress-fill" style="width: 42.86%"></div>
-            </div>
-        </div>
-        <div class="mission-card__actions">
-            <button class="mission-card__btn mission-card__btn--primary">Start</button>
-            <button class="mission-card__btn mission-card__btn--secondary">View Details</button>
-        </div>
-    </div>
-</div>
-```
-
-### 5. Initialize (Auto-initializes)
-
-The component automatically initializes when the page loads. No additional setup required!
+4. **Open your browser**
+   Navigate to `http://localhost:8000`
 
 ## 🔧 Configuration
 
-### Required API Credentials
+### API Configuration
 
-- **Base URL**: Your GameLayer API endpoint (default: `https://api.gamelayer.co/api/v0`)
-- **API Key**: Your GameLayer API key for authentication
-- **Default Player**: Your player ID for API calls
-- **Account ID**: Your GameLayer account ID
-
-### API Endpoints
-
-The component uses these GameLayer API endpoints:
-- `GET /missions/{id}?account={accountId}` - Get single mission
-- `GET /missions?account={accountId}` - Get all missions
-
-### Required Headers
+The application uses a centralized API configuration in `js/api.js`:
 
 ```javascript
-{
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "api-key": "your-api-key"
-}
-```
-
-## 📊 Data Structure
-
-The component expects mission data with this structure:
-
-```javascript
-{
-    "id": "mission-id",
-    "name": "Mission Name",
-    "description": "Mission description",
-    "category": "daily|weekly|monthly|elite|special",
-    "imgUrl": "https://example.com/mission-image.jpg", // Optional
-    "active": {
-        "to": "2024-01-01T00:00:00Z"  // Mission end time
-    },
-    "reward": {
-        "points": 500,    // Points awarded upon completion
-        "credits": 50     // Credits awarded upon completion
-    },
-    "objectives": {
-        "events": [
-            {
-                "currentcount": 3,  // Current progress
-                "count": 7          // Total required
-            }
-        ]
+class GameLayerAPI {
+    constructor(config = {}) {
+        this.config = {
+            baseURL: 'https://api.gamelayer.co/api/v0',
+            apiKey: 'your-api-key',
+            defaultPlayer: 'player-id',
+            accountId: 'account-id',
+            ...config
+        };
     }
 }
 ```
 
-## 🎯 Component States
+### Component Configuration
 
-The component automatically handles different mission states:
-
-- **Active**: Mission in progress with countdown timer
-- **Completed**: Mission finished with claimable rewards
-- **Upcoming**: Mission not yet available
-- **Locked**: Mission requires specific conditions to unlock
-- **Expired**: Mission past its deadline
-
-## 📡 Events
-
-The component emits custom events for easy integration:
+Each component can be configured independently:
 
 ```javascript
-// Listen for mission events
-document.addEventListener('mission:primary-action', (e) => {
-    console.log('Primary action:', e.detail);
-    // Handle primary button clicks
+// Initialize with custom options
+const profile = new ProfileComponent(api);
+const missions = new MissionManager(container, { 
+    playerId: 'custom-player-id',
+    autoLoad: true 
 });
+```
 
-document.addEventListener('mission:secondary-action', (e) => {
-    console.log('Secondary action:', e.detail);
-    // Handle secondary button clicks
-});
+## 📚 API Integration Examples
 
-document.addEventListener('mission:details', (e) => {
-    console.log('Mission details:', e.detail);
-    // Handle card clicks for details
-});
+### Fetching Player Data
+```javascript
+const api = new GameLayerAPI();
+const playerProfile = await api.getPlayerProfile('player-123');
+```
 
-document.addEventListener('mission:rendered', (e) => {
-    console.log('Mission rendered:', e.detail);
-    // Handle when mission data is loaded
-});
+### Loading Missions
+```javascript
+const missions = await api.getPlayerMissions('player-123');
+const missionManager = new MissionManager(container);
+await missionManager.loadMissions();
+```
+
+### Updating Leaderboard
+```javascript
+const leaderboard = new LeaderboardComponent(api);
+await leaderboard.load();
 ```
 
 ## 🎨 Customization
 
-### CSS Custom Properties
-
-The component uses CSS custom properties for easy theming:
+### Styling
+The application uses CSS Custom Properties for easy theming:
 
 ```css
 :root {
-    --gl-primary: #007AFF;      /* Primary brand color */
-    --gl-secondary: #5856D6;    /* Secondary brand color */
-    --gl-success: #34C759;      /* Success state color */
-    --gl-warning: #FF9500;      /* Warning state color */
-    --gl-danger: #FF3B30;       /* Danger state color */
-    --gl-gray-50: #f5f5f7;      /* Light background */
-    --gl-gray-900: #1d1d1f;     /* Dark text */
+    --gl-primary: #007AFF;
+    --gl-secondary: #5AC8FA;
+    --gl-success: #34C759;
+    --gl-warning: #FF9500;
+    --gl-danger: #FF3B30;
 }
 ```
 
-### Styling Overrides
+### Component Styling
+Each component has its own CSS file for easy customization:
+- `components/profile/profile.css`
+- `components/missions/mission.css`
+- `components/leaderboard/leaderboard.css`
+- `components/rewards/rewards.css`
 
-You can override any component styles using standard CSS:
+## 🔍 Troubleshooting
 
-```css
-.mission-card {
-    /* Custom card styling */
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
+### Common Issues
 
-.mission-card__title {
-    /* Custom title styling */
-    font-size: 1.25rem;
-    color: #your-brand-color;
-}
+1. **API Connection Failed**
+   - Verify your API key and account ID
+   - Check network connectivity
+   - Ensure CORS is properly configured
+
+2. **No Data Displayed**
+   - Verify player ID exists in your account
+   - Check browser console for errors
+   - Ensure API endpoints are accessible
+
+3. **Styling Issues**
+   - Clear browser cache
+   - Verify CSS files are loading
+   - Check for CSS conflicts
+
+### Debug Mode
+
+Enable detailed logging by setting:
+```javascript
+localStorage.setItem('gamelayer-debug', 'true');
 ```
 
-## 📱 Responsive Design
+## 📖 API Reference
 
-The component is built with a mobile-first approach:
+### Core Methods
 
-- **Mobile**: Single column layout with optimized touch targets
-- **Tablet**: Responsive grid with 2-3 columns
-- **Desktop**: Multi-column grid with hover effects
+| Method | Description | Parameters |
+|--------|-------------|------------|
+| `getPlayerProfile(playerId)` | Fetch player information | `playerId` (optional) |
+| `getPlayerMissions(playerId)` | Get player's missions | `playerId` (optional) |
+| `getLeaderboardWithRankings(id)` | Fetch leaderboard data | `leaderboardId` |
+| `getPrizes()` | Get available rewards | None |
+| `getLevels()` | Fetch level definitions | None |
 
-## 🌐 Browser Support
+### Event System
 
-- **Modern Browsers**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
-- **Mobile Browsers**: iOS Safari 14+, Chrome Mobile 90+
-- **Fallbacks**: Graceful degradation for older browsers
+The application uses a custom event system for component communication:
 
-## 🚀 Development
+```javascript
+// Listen for events
+document.addEventListener('mission:completed', (e) => {
+    console.log('Mission completed:', e.detail);
+});
 
-### Local Development
-
-```bash
-# Clone the repository
-git clone https://github.com/stevenjudge/gl-assets.git
-cd gl-assets
-
-# Start local server
-npm run dev
-# or
-python3 -m http.server 8000
-
-# Open demo page
-open http://localhost:8000/demo.html
+// Emit events
+document.dispatchEvent(new CustomEvent('player:updated', {
+    detail: { playerId: 'player-123' }
+}));
 ```
 
-### Building for Production
+## 🤝 Contributing
 
-The component is ready for production use. Simply include the files in your project:
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-1. Copy `mission.js`, `mission.css`, and `assets.css` to your project
-2. Update the API configuration with your credentials
-3. Add the HTML structure to your pages
-4. The component will auto-initialize
+### Development Setup
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## 🆘 Support
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- **Documentation**: [docs.gamelayer.co](https://docs.gamelayer.co)
+- **API Reference**: [api.gamelayer.co](https://api.gamelayer.co)
+- **Community**: [community.gamelayer.co](https://community.gamelayer.co)
+- **Issues**: [GitHub Issues](https://github.com/gamelayer/assets/issues)
 
-## 📞 Support
+## 🙏 Acknowledgments
 
-For support and questions:
-- Create an issue on GitHub
-- Check the demo page for examples
-- Review the code comments for implementation details
-
-## 🔮 Roadmap
-
-Future versions will include:
-- Additional UI components (leaderboards, achievements, etc.)
-- More customization options
-- Enhanced accessibility features
-- Performance optimizations
-- TypeScript definitions
+- GameLayer team for the amazing platform
+- Contributors and community members
+- Open source projects that made this possible
 
 ---
 
-**Built with ❤️ for the GameLayer community**
+**Ready to build amazing gamified experiences?** 🚀
+
+Start with this demo, customize it for your needs, and create engaging applications that keep users motivated and engaged!
 

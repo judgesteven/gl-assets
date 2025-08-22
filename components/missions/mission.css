@@ -498,3 +498,106 @@
   background: var(--gl-success);
   filter: brightness(0.9);
 }
+
+/* Mission Manager States */
+.missions--loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Empty State */
+.missions-empty {
+  text-align: center;
+  padding: var(--gl-spacing-8);
+  color: var(--gl-gray-500);
+}
+
+.missions-empty__icon {
+  font-size: 4rem;
+  margin-bottom: var(--gl-spacing-4);
+}
+
+.missions-empty__title {
+  font-size: var(--gl-font-size-xl);
+  font-weight: 700;
+  color: var(--gl-gray-900);
+  margin: 0 0 var(--gl-spacing-2) 0;
+}
+
+.missions-empty__message {
+  font-size: var(--gl-font-size-lg);
+  color: var(--gl-gray-600);
+  margin: 0;
+}
+
+/* Error State */
+.missions-error {
+  text-align: center;
+  padding: var(--gl-spacing-6);
+  background: var(--gl-white);
+  border-radius: var(--gl-radius-lg);
+  border: 2px solid var(--gl-danger);
+}
+
+.missions-error__icon {
+  font-size: 3rem;
+  margin-bottom: var(--gl-spacing-3);
+}
+
+.missions-error__title {
+  font-size: var(--gl-font-size-xl);
+  font-weight: 700;
+  color: var(--gl-gray-900);
+  margin: 0 0 var(--gl-spacing-2) 0;
+}
+
+.missions-error__message {
+  color: var(--gl-gray-900);
+  font-size: var(--gl-font-size-lg);
+  margin: 0 0 var(--gl-spacing-3) 0;
+}
+
+.missions-error__retry {
+  background: var(--gl-primary);
+  color: var(--gl-white);
+  border: none;
+  padding: var(--gl-spacing-3) var(--gl-spacing-6);
+  border-radius: var(--gl-radius-lg);
+  font-size: var(--gl-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--gl-transition);
+}
+
+.missions-error__retry:hover {
+  background: var(--gl-secondary);
+  transform: translateY(-1px);
+}
+
+/* Missions Note */
+.missions-note {
+    margin-top: var(--gl-spacing-6);
+    padding: var(--gl-spacing-4);
+    background: var(--gl-blue-50);
+    border: 1px solid var(--gl-blue-200);
+    border-radius: var(--gl-radius-lg);
+}
+
+.missions-note__content p {
+    margin: 0;
+    color: var(--gl-blue-800);
+    font-size: var(--gl-font-size-sm);
+    text-align: center;
+}
+
+/* Missions Waiting State */
+.missions-waiting {
+    text-align: center;
+    padding: var(--gl-spacing-8);
+    color: var(--gl-gray-500);
+}
+
+.missions-waiting__content p {
+    margin: 0;
+    font-size: var(--gl-font-size-lg);
+}

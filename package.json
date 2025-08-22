@@ -1,31 +1,46 @@
 {
-  "name": "gamelayer-mission-card",
+  "name": "gamelayer-assets",
   "version": "1.0.0",
-  "description": "A complete, self-contained mission card component for GameLayer gamification platforms",
-  "main": "mission.js",
-  "scripts": {
-    "demo": "python3 -m http.server 8000",
-    "dev": "python3 -m http.server 8000"
-  },
+  "description": "Production-ready GameLayer Assets - Complete demo application with ready-to-use UI components for GameLayer's gamification platform",
+  "main": "js/app.js",
   "keywords": [
     "gamelayer",
     "gamification",
-    "mission-card",
-    "ui-component",
-    "mobile-first",
-    "responsive",
-    "ios-inspired"
+    "demo",
+    "assets",
+    "ui-components",
+    "javascript",
+    "vanilla-js",
+    "api-integration",
+    "leaderboard",
+    "missions",
+    "rewards",
+    "profile"
   ],
   "author": "GameLayer Assets",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/judgesteven/gl-assets.git"
+    "url": "https://github.com/gamelayer/gl-assets.git"
   },
   "bugs": {
-    "url": "https://github.com/judgesteven/gl-assets/issues"
+    "url": "https://github.com/gamelayer/gl-assets/issues"
   },
-  "homepage": "https://github.com/judgesteven/gl-assets#readme",
+  "homepage": "https://github.com/gamelayer/gl-assets#readme",
+  "files": [
+    "js/",
+    "components/",
+    "assets.css",
+    "index.html",
+    "README.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",

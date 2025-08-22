@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameLayer Assets</title>
+    <meta name="description" content="On this page we provide a few ready-made assets that we hope will help you get started using GameLayer. All of the assets here are connected to a GameLayer account and are fetching data directly using our API. They should provide a good reference on how to integrate our API into your own project. Remember to use your own unique API key and account credentials. GameLayer's API. Link to GitHub:">
+    
+    <!-- Shared Design System -->
+    <link rel="stylesheet" href="assets.css">
+    
+    <!-- Component Styles -->
+    <link rel="stylesheet" href="components/profile/profile.css">
+    <link rel="stylesheet" href="components/missions/mission.css">
+    <link rel="stylesheet" href="components/leaderboard/leaderboard.css">
+    <link rel="stylesheet" href="components/rewards/rewards.css">
+    
+    <!-- App-specific styles -->
+    <style>
+        /* Simple Layout Styles */
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--gl-spacing-6);
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: var(--gl-spacing-8);
+        }
+        
+        .demo-title {
+            font-size: var(--gl-font-size-3xl);
+            font-weight: 800;
+            color: var(--gl-primary);
+            margin: 0 0 var(--gl-spacing-3) 0;
+        }
+        
+        .demo-subtitle {
+            font-size: var(--gl-font-size-lg);
+            color: var(--gl-gray-600);
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .demo-section {
+            margin-bottom: var(--gl-spacing-8);
+        }
+        
+        .demo-section__title {
+            font-size: var(--gl-font-size-2xl);
+            font-weight: 700;
+            color: var(--gl-gray-900);
+            margin: 0 0 var(--gl-spacing-4) 0;
+            padding-bottom: var(--gl-spacing-2);
+            border-bottom: 3px solid var(--gl-primary);
+            display: inline-block;
+        }
+        
+        /* Section Headers */
+        .demo-section__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--gl-spacing-4);
+        }
+
+
+
+        /* Load Player Section */
+        .load-player-container {
+            background: var(--gl-white);
+            border-radius: var(--gl-radius-xl);
+            padding: var(--gl-spacing-6);
+            box-shadow: var(--gl-shadow-md);
+            margin-bottom: var(--gl-spacing-6);
+        }
+
+        .load-player__form {
+            display: flex;
+            align-items: end;
+            gap: var(--gl-spacing-4);
+            margin-bottom: var(--gl-spacing-4);
+        }
+
+        .load-player__label {
+            display: block;
+            font-weight: 600;
+            color: var(--gl-gray-700);
+            margin-bottom: var(--gl-spacing-2);
+        }
+
+        .load-player__select {
+            flex: 1;
+            padding: var(--gl-spacing-3);
+            border: 1px solid var(--gl-gray-300);
+            border-radius: var(--gl-radius-md);
+            font-size: var(--gl-font-size-base);
+            background: var(--gl-white);
+            color: var(--gl-gray-900);
+            cursor: pointer;
+        }
+
+        .load-player__select:focus {
+            outline: none;
+            border-color: var(--gl-primary);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .load-player__btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--gl-shadow-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .load-player__btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--gl-shadow-md);
+            background: linear-gradient(135deg, #5f3dc4, #8b7fd8);
+        }
+
+        .load-player__btn:active {
+            transform: translateY(0);
+        }
+
+        .load-player__btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .load-player__info {
+            color: var(--gl-gray-600);
+            font-size: var(--gl-font-size-sm);
+            line-height: 1.5;
+        }
+
+        /* Component containers */
+        .profile-container {
+            background: var(--gl-white);
+            border-radius: var(--gl-radius-xl);
+            padding: var(--gl-spacing-6);
+            box-shadow: var(--gl-shadow-md);
+        }
+        
+        .missions-container {
+            background: var(--gl-white);
+            border-radius: var(--gl-radius-xl);
+            padding: var(--gl-spacing-6);
+            box-shadow: var(--gl-shadow-md);
+        }
+        
+        .leaderboard-container {
+            background: var(--gl-white);
+            border-radius: var(--gl-radius-xl);
+            padding: var(--gl-spacing-6);
+            box-shadow: var(--gl-shadow-md);
+        }
+        
+        .rewards-container {
+            background: var(--gl-white);
+            border-radius: var(--gl-radius-xl);
+            padding: var(--gl-spacing-6);
+            box-shadow: var(--gl-shadow-md);
+        }
+        
+        /* Mission Examples Grid */
+        .mission-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--gl-spacing-4);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: var(--gl-spacing-4);
+            }
+            
+            .mission-examples {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Demo Header -->
+        <header class="demo-header">
+            <h1 class="demo-title">GameLayer Assets</h1>
+            <p class="demo-subtitle">
+                On this page we provide a few ready-made assets that we hope will help you get started using GameLayer. All of the assets here are connected to a GameLayer account and are fetching data directly using our API. They should provide a good reference on how to integrate our API into your own project. Remember to use your own unique API key and account credentials. <a href="https://github.com/gamelayer/assets" target="_blank" rel="noopener noreferrer">Link to GitHub</a>
+            </p>
+        </header>
+
+        <!-- Load Player Section -->
+        <section class="demo-section">
+            <div class="demo-section__header">
+                <h2 class="demo-section__title">🎮 Load Player</h2>
+                <button id="load-player-btn" class="load-player__btn" disabled>
+                    Load Player
+                </button>
+            </div>
+            <div class="load-player-container">
+                <div class="load-player__form">
+                    <select id="player-select" class="load-player__select">
+                        <option value="">Loading players...</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="demo-section">
+            <h2 class="demo-section__title">👤 Profile</h2>
+            <div class="profile-container" id="section-profile">
+                <!-- Profile content will be loaded here -->
+            </div>
+        </section>
+        
+        <!-- Missions Section -->
+        <section class="demo-section">
+            <div class="demo-section__header">
+                <h2 class="demo-section__title">🚀 Missions</h2>
+                <button id="event-complete-btn" class="event-complete-btn">
+                    Complete Event
+                </button>
+            </div>
+            <div class="missions-container" id="section-missions">
+                <!-- Missions will be loaded dynamically from API -->
+                <div class="gl-loading">
+                    <div class="gl-loading__spinner"></div>
+                    <div class="gl-loading__text">Loading missions...</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Leaderboard Section -->
+        <section class="demo-section">
+            <div class="demo-section__header">
+                <h2 class="demo-section__title">🏆 Leaderboard</h2>
+                <button id="refresh-leaderboard-btn" class="refresh-leaderboard-btn">
+                    Refresh Scores
+                </button>
+            </div>
+            <div class="leaderboard-container" id="section-leaderboard">
+                <!-- Leaderboard content will be loaded here -->
+            </div>
+        </section>
+        
+        <!-- Rewards Section -->
+        <section class="demo-section">
+            <h2 class="demo-section__title">🎁 Rewards</h2>
+            <div class="rewards-container" id="section-rewards">
+                <!-- Rewards content will be loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Core JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    
+    <!-- Components -->
+    <script src="components/profile/profile.js"></script>
+    <script src="components/missions/mission.js"></script>
+    <script src="components/leaderboard/leaderboard.js"></script>
+    <script src="components/rewards/rewards.js"></script>
+    
+    <!-- Player Loader Component -->
+    <script>
+        class PlayerLoader {
+            constructor(api) {
+                this.api = api;
+                this.players = [];
+                this.currentPlayerId = this.getStoredPlayerId();
+            }
+
+            async init() {
+                try {
+                    await this.loadPlayers();
+                    this.setupEventListeners();
+                    this.updateUI();
+                    
+                    // If we have a stored player ID, load that player automatically
+                    if (this.currentPlayerId) {
+                        await this.loadPlayer(this.currentPlayerId);
+                    }
+                } catch (error) {
+                    console.error('Failed to initialize PlayerLoader:', error);
+                }
+            }
+
+            async loadPlayers() {
+                try {
+                    this.players = await this.api.getAllPlayers();
+                } catch (error) {
+                    console.error('[PlayerLoader] Failed to load players:', error);
+                    this.players = [];
+                }
+            }
+
+            setupEventListeners() {
+                const playerSelect = document.getElementById('player-select');
+                const loadPlayerBtn = document.getElementById('load-player-btn');
+
+                if (playerSelect) {
+                    playerSelect.addEventListener('change', (e) => {
+                        const selectedPlayerId = e.target.value;
+                        loadPlayerBtn.disabled = !selectedPlayerId;
+                        this.currentPlayerId = selectedPlayerId;
+                    });
+                }
+
+                if (loadPlayerBtn) {
+                    loadPlayerBtn.addEventListener('click', async () => {
+                        if (this.currentPlayerId) {
+                            await this.loadPlayer(this.currentPlayerId);
+                        }
+                    });
+                }
+            }
+
+            async loadPlayer(playerId) {
+                try {
+                    // Update API default player
+                    this.api.updateDefaultPlayer(playerId);
+                    
+                    // Store the selected player ID
+                    this.storePlayerId(playerId);
+                    
+                    // Fetch new player's level data directly from API
+                    const playerLevelsData = await this.api.getPlayerLevels(playerId);
+                    
+                    // Update UI to show loading state
+                    this.updateUI();
+                    
+                    // Reload all components with new player data
+                    await this.reloadAllComponents();
+                } catch (error) {
+                    console.error('[PlayerLoader] Failed to load player:', error);
+                }
+            }
+
+            async reloadAllComponents() {
+                try {
+                    // Get all component instances from the global scope (where they're actually defined)
+                    const profile = window.profileComponent;
+                    const leaderboard = window.leaderboardComponent;
+                    const rewards = window.rewardsComponent;
+                    const missions = window.missionComponent;
+
+                    // Reload each component with the new player context
+                    if (profile) {
+                        await profile.load();
+                    }
+                    if (leaderboard) {
+                        await leaderboard.load();
+                    }
+                    if (rewards) {
+                        await rewards.load();
+                    }
+                    if (missions) {
+                        // Pass the specific player ID to missions
+                        await missions.loadForPlayer(this.currentPlayerId);
+                    }
+                } catch (error) {
+                    console.error('[PlayerLoader] Failed to reload components:', error);
+                }
+            }
+
+            updateUI() {
+                const playerSelect = document.getElementById('player-select');
+                const loadPlayerBtn = document.getElementById('load-player-btn');
+
+                if (playerSelect) {
+                    // Clear existing options
+                    playerSelect.innerHTML = '';
+                    
+                    // Add default option
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.textContent = 'Select a player...';
+                    playerSelect.appendChild(defaultOption);
+
+                    // Add player options
+                    this.players.forEach(player => {
+                        const option = document.createElement('option');
+                        option.value = player.player || player.id;
+                        option.textContent = `${player.name} (${player.points} pts)`;
+                        playerSelect.appendChild(option);
+                    });
+
+                    // Set current player if available
+                    if (this.currentPlayerId) {
+                        playerSelect.value = this.currentPlayerId;
+                    }
+                }
+
+                if (loadPlayerBtn) {
+                    loadPlayerBtn.disabled = !this.currentPlayerId;
+                }
+            }
+
+            // Store the selected player ID in localStorage
+            storePlayerId(playerId) {
+                try {
+                    localStorage.setItem('gamelayer-selected-player', playerId);
+                } catch (error) {
+                    console.error('[PlayerLoader] Failed to store player ID:', error);
+                }
+            }
+
+            // Retrieve the stored player ID from localStorage
+            getStoredPlayerId() {
+                try {
+                    const storedPlayerId = localStorage.getItem('gamelayer-selected-player');
+                    return storedPlayerId;
+                } catch (error) {
+                    console.error('[PlayerLoader] Failed to retrieve stored player ID:', error);
+                    return null;
+                }
+            }
+        }
+    </script>
+
+    <!-- Simple App Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const api = new GameLayerAPI();
+                
+                // Initialize Player Loader
+                const playerLoader = new PlayerLoader(api);
+                await playerLoader.init();
+                
+                const profile = new ProfileComponent(api);
+                const leaderboard = new LeaderboardComponent(api);
+                const rewards = new RewardsComponent(api);
+                
+                // Make components globally available for PlayerLoader
+                window.profileComponent = profile;
+                window.leaderboardComponent = leaderboard;
+                window.rewardsComponent = rewards;
+                
+                // Initialize event complete button functionality
+                const eventCompleteBtn = document.getElementById('event-complete-btn');
+                if (eventCompleteBtn) {
+                    eventCompleteBtn.addEventListener('click', async () => {
+                        try {
+                            // Disable button and show loading state
+                            eventCompleteBtn.disabled = true;
+                            eventCompleteBtn.classList.add('event-complete-btn--loading');
+                            
+                            // Call the API to complete the event
+                            const result = await api.completeEvent('event-hidden');
+                            
+                            // Show success notification
+                            alert('Event completed successfully! Loading latest data...');
+                            
+                            // Use app's refresh method to reload components
+                            try {
+                                if (window.gameLayerApp) {
+                                    await window.gameLayerApp.refreshAllSections();
+                                } else {
+                                    // Fallback to direct component loading
+                                    await Promise.all([
+                                        profile.load(),
+                                        leaderboard.load(),
+                                        rewards.load()
+                                    ]);
+                                }
+                            } catch (error) {
+                                console.error('Failed to reload components:', error);
+                            }
+                            
+                        } catch (error) {
+                            // Show error message
+                            console.error('Failed to complete event:', error);
+                            alert('Failed to complete event. Please try again.');
+                        } finally {
+                            // Re-enable button and remove loading state
+                            eventCompleteBtn.disabled = false;
+                            eventCompleteBtn.classList.remove('event-complete-btn--loading');
+                        }
+                    });
+                }
+
+                // Initialize refresh leaderboard button functionality
+                const refreshLeaderboardBtn = document.getElementById('refresh-leaderboard-btn');
+                if (refreshLeaderboardBtn) {
+                    refreshLeaderboardBtn.addEventListener('click', async () => {
+                        try {
+                            // Disable button and show loading state
+                            refreshLeaderboardBtn.disabled = true;
+                            refreshLeaderboardBtn.classList.add('refresh-leaderboard-btn--loading');
+                            
+                            // Use app's refresh method to reload leaderboard
+                            if (window.gameLayerApp) {
+                                await window.gameLayerApp.refreshCurrentSection();
+                            } else {
+                                // Fallback to direct component loading
+                                await leaderboard.load();
+                            }
+                        } catch (error) {
+                            // Show error message
+                            console.error('Failed to refresh leaderboard:', error);
+                            alert('Failed to refresh leaderboard. Please try again.');
+                        } finally {
+                            // Re-enable button and remove loading state
+                            refreshLeaderboardBtn.disabled = false;
+                            refreshLeaderboardBtn.classList.remove('refresh-leaderboard-btn--loading');
+                        }
+                    });
+                }
+                
+                // Initialize mission component to load all missions from API
+                const missionsContainer = document.getElementById('section-missions');
+                if (missionsContainer) {
+                    const missionComponent = new MissionComponent(api);
+                    window.missionComponent = missionComponent;
+                }
+                
+                await Promise.all([
+                    profile.load(),
+                    leaderboard.load(),
+                    rewards.load()
+                ]);
+            } catch (error) {
+                console.error('GameLayer Demo - Failed to load components:', error);
+            }
+        });
+    </script>
+</body>
+</html>

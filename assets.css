@@ -4,6 +4,8 @@
 :root {
   /* Color Palette */
   --gl-primary: #007AFF;
+  --gl-primary-light: #5AC8FA;
+  --gl-primary-dark: #0056CC;
   --gl-secondary: #5856D6;
   --gl-success: #34C759;
   --gl-warning: #FF9500;
@@ -224,7 +226,72 @@ body {
   background-color: var(--gl-gray-50);
 }
 
-/* Responsive Design */
+/* === EVENT COMPLETE BUTTON === */
+
+.demo-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.event-complete-btn {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--gl-shadow-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event-complete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--gl-shadow-md);
+    background: linear-gradient(135deg, #5f3dc4, #8b7fd8);
+}
+
+.event-complete-btn:active {
+    transform: translateY(0);
+}
+
+.event-complete-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.event-complete-btn--loading {
+    position: relative;
+    color: transparent;
+}
+
+.event-complete-btn--loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin: -0.5rem 0 0 -0.5rem;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* === RESPONSIVE DESIGN === */
 @media (max-width: 768px) {
   .gl-container {
     padding: 0 var(--gl-spacing-2);

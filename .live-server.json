@@ -1,0 +1,16 @@
+{
+  "port": 8000,
+  "host": "localhost",
+  "root": ".",
+  "open": "/",
+  "file": "index.html",
+  "wait": 100,
+  "mount": [],
+  "logLevel": 2,
+  "middleware": []
+}
+
+
+
+
+
