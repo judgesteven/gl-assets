@@ -206,8 +206,80 @@ class RewardsComponent {
         });
     }
 
-    onRewardClaim(rewardId) {
-        this.emit('reward:claimed', { rewardId });
+    async onRewardClaim(rewardId) {
+        try {
+            // Get the button element to show loading state
+            const rewardCard = this.container.querySelector(`[data-reward-id="${rewardId}"]`);
+            const claimButton = rewardCard?.querySelector('.reward-card__btn--claim');
+            
+            if (!claimButton) {
+                console.error('[Rewards Component] Claim button not found for reward:', rewardId);
+                return;
+            }
+
+            // Disable button and show loading state
+            claimButton.disabled = true;
+            claimButton.textContent = 'Claiming...';
+            claimButton.classList.add('reward-card__btn--loading');
+
+            // Get current player ID
+            const currentPlayerId = this.api.config.defaultPlayer;
+            if (!currentPlayerId) {
+                alert('Please select a player first');
+                claimButton.disabled = false;
+                claimButton.textContent = 'Get Prize';
+                claimButton.classList.remove('reward-card__btn--loading');
+                return;
+            }
+
+            console.log('[Rewards Component] Claiming prize:', rewardId, 'for player:', currentPlayerId);
+
+            // Call the API to claim the prize
+            const result = await this.api.claimPrize(rewardId, currentPlayerId);
+            
+            console.log('[Rewards Component] Prize claim result:', result);
+
+            // Show success notification
+            alert('Prize claimed successfully! Updating balance and stock...');
+
+            // Refresh profile and rewards to show updated data
+            try {
+                if (window.gameLayerApp) {
+                    await window.gameLayerApp.refreshAllSections();
+                } else {
+                    // Fallback to direct component loading
+                    if (window.profileComponent) {
+                        await window.profileComponent.load();
+                    }
+                    await this.load();
+                }
+            } catch (error) {
+                console.error('[Rewards Component] Failed to refresh components:', error);
+                // Still refresh rewards even if profile refresh fails
+                await this.load();
+            }
+
+            console.log('[Rewards Component] Prize claim complete, components refreshed');
+
+        } catch (error) {
+            // Log detailed error information
+            console.error('[Rewards Component] Failed to claim prize:', error);
+            console.error('[Rewards Component] Error message:', error.message);
+            console.error('[Rewards Component] Error stack:', error.stack);
+
+            // Show detailed error message
+            const errorMessage = error.message || 'Unknown error occurred';
+            alert(`Failed to claim prize: ${errorMessage}. Please check the console for more details.`);
+
+            // Re-enable button
+            const rewardCard = this.container.querySelector(`[data-reward-id="${rewardId}"]`);
+            const claimButton = rewardCard?.querySelector('.reward-card__btn--claim');
+            if (claimButton) {
+                claimButton.disabled = false;
+                claimButton.textContent = 'Get Prize';
+                claimButton.classList.remove('reward-card__btn--loading');
+            }
+        }
     }
 
     onRewardClick(rewardId) {

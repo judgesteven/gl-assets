@@ -210,6 +210,19 @@ class GameLayerAPI {
         });
     }
 
+    // === PRIZE API METHODS ===
+    
+    async claimPrize(prizeId, playerId = null) {
+        const player = playerId || this.config.defaultPlayer;
+        return this.request(`/prizes/${prizeId}/claim`, {
+            method: 'POST',
+            body: JSON.stringify({
+                player: player,
+                account: this.config.accountId
+            })
+        });
+    }
+
     // === UTILITY METHODS ===
     
     getConfig() {
