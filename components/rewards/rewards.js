@@ -239,6 +239,11 @@ class RewardsComponent {
             
             console.log('[Rewards Component] Prize claim result:', result);
 
+            // Check if the response indicates an error even on successful HTTP status
+            if (result && (result.error || result.message && result.message.toLowerCase().includes('insufficient') || result.message && result.message.toLowerCase().includes('credit'))) {
+                throw new Error(result.message || result.error || 'Failed to claim prize');
+            }
+
             // Show success notification
             alert('Prize claimed successfully! Updating balance and stock...');
 
@@ -265,11 +270,35 @@ class RewardsComponent {
             // Log detailed error information
             console.error('[Rewards Component] Failed to claim prize:', error);
             console.error('[Rewards Component] Error message:', error.message);
+            console.error('[Rewards Component] Error response:', error.response);
             console.error('[Rewards Component] Error stack:', error.stack);
 
-            // Show detailed error message
-            const errorMessage = error.message || 'Unknown error occurred';
-            alert(`Failed to claim prize: ${errorMessage}. Please check the console for more details.`);
+            // Extract error message from API response
+            let errorMessage = 'Unknown error occurred';
+            if (error.response && error.response.message) {
+                errorMessage = error.response.message;
+            } else if (error.response && error.response.error) {
+                errorMessage = error.response.error;
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
+            // Check for insufficient credits error
+            const errorMessageLower = errorMessage.toLowerCase();
+            const isInsufficientCredits = 
+                errorMessageLower.includes('credit') || 
+                errorMessageLower.includes('insufficient') ||
+                errorMessageLower.includes('not enough') ||
+                errorMessageLower.includes('balance') ||
+                error.status === 400 || // Bad request often means validation failed (like insufficient credits)
+                error.status === 403;   // Forbidden can also mean insufficient credits
+
+            // Show user-friendly error message
+            if (isInsufficientCredits) {
+                alert('You do not have enough credits to claim this prize. Please earn more credits and try again.');
+            } else {
+                alert(`Failed to claim prize: ${errorMessage}`);
+            }
 
             // Re-enable button
             const rewardCard = this.container.querySelector(`[data-reward-id="${rewardId}"]`);
