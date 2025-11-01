@@ -229,7 +229,12 @@
 
         <!-- Profile Section -->
         <section class="demo-section">
-            <h2 class="demo-section__title">👤 Profile</h2>
+            <div class="demo-section__header">
+                <h2 class="demo-section__title">👤 Profile</h2>
+                <button id="unlock-achievements-btn" class="event-complete-btn">
+                    Unlock Achievements
+                </button>
+            </div>
             <div class="profile-container" id="section-profile">
                 <!-- Profile content will be loaded here -->
             </div>
@@ -533,6 +538,58 @@
                         });
                     }
                 });
+
+                // Initialize unlock achievements button functionality
+                const unlockAchievementsBtn = document.getElementById('unlock-achievements-btn');
+                if (unlockAchievementsBtn) {
+                    unlockAchievementsBtn.addEventListener('click', async () => {
+                        try {
+                            // Disable button and show loading state
+                            unlockAchievementsBtn.disabled = true;
+                            unlockAchievementsBtn.classList.add('event-complete-btn--loading');
+                            
+                            // Get current player ID
+                            const currentPlayerId = api.config.defaultPlayer;
+                            console.log('[Unlock Achievements] Current player ID:', currentPlayerId);
+                            
+                            if (!currentPlayerId) {
+                                alert('Please select a player first');
+                                unlockAchievementsBtn.disabled = false;
+                                unlockAchievementsBtn.classList.remove('event-complete-btn--loading');
+                                return;
+                            }
+
+                            console.log('[Unlock Achievements] Completing event-hidden for player:', currentPlayerId);
+                            
+                            // Call the API to complete the event-hidden (this unlocks achievements)
+                            const result = await api.completeEvent('event-hidden', currentPlayerId);
+                            
+                            console.log('[Unlock Achievements] Event completion result:', result);
+                            
+                            // Show success notification
+                            alert('Achievements unlocked successfully! Refreshing profile...');
+                            
+                            // Refresh profile component to show updated achievements
+                            await profile.load();
+                            
+                            console.log('[Unlock Achievements] Profile refreshed successfully');
+                            
+                        } catch (error) {
+                            // Log detailed error information
+                            console.error('[Unlock Achievements] Failed to unlock achievements:', error);
+                            console.error('[Unlock Achievements] Error message:', error.message);
+                            console.error('[Unlock Achievements] Error stack:', error.stack);
+                            
+                            // Show detailed error message
+                            const errorMessage = error.message || 'Unknown error occurred';
+                            alert(`Failed to unlock achievements: ${errorMessage}. Please check the console for more details.`);
+                        } finally {
+                            // Re-enable button and remove loading state
+                            unlockAchievementsBtn.disabled = false;
+                            unlockAchievementsBtn.classList.remove('event-complete-btn--loading');
+                        }
+                    });
+                }
 
                 // Initialize refresh leaderboard button functionality
                 const refreshLeaderboardBtn = document.getElementById('refresh-leaderboard-btn');

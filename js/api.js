@@ -43,8 +43,23 @@ class GameLayerAPI {
             });
 
             if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+                let errorText = '';
+                let errorData = null;
+                
+                // Try to parse error response as JSON first
+                try {
+                    errorData = await response.json();
+                    errorText = JSON.stringify(errorData);
+                } catch (e) {
+                    // If JSON parsing fails, get text
+                    errorText = await response.text();
+                }
+                
+                const errorMessage = errorData?.message || errorData?.error || errorText || response.statusText;
+                const error = new Error(`API request failed: ${response.status} ${response.statusText} - ${errorMessage}`);
+                error.status = response.status;
+                error.response = errorData;
+                throw error;
             }
 
             const data = await response.json();
@@ -52,6 +67,8 @@ class GameLayerAPI {
 
         } catch (error) {
             console.error('[GameLayer API] Request failed:', error);
+            console.error('[GameLayer API] Endpoint:', endpoint);
+            console.error('[GameLayer API] Options:', options);
             throw error;
         }
     }
