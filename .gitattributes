@@ -1,0 +1,11 @@
+# Folder descriptions for GitHub
+components/ linguist-language=JavaScript
+js/ linguist-language=JavaScript
+*.js linguist-language=JavaScript
+*.css linguist-language=CSS
+*.html linguist-language=HTML
+
+# Mark folders as containing source code
+components/ linguist-documentation=false
+js/ linguist-documentation=false
+
