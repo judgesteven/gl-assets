@@ -61,33 +61,45 @@
   gap: var(--gl-spacing-1);
 }
 
-.mission-card__reward {
-  display: flex;
-  flex-direction: row;
+.mission-card__reward-badge {
+  display: inline-flex;
   align-items: center;
-  text-align: right;
   gap: var(--gl-spacing-2);
-  width: auto;
-  justify-content: flex-end;
+  padding: var(--gl-spacing-2) var(--gl-spacing-3);
+  border-radius: 1.25rem;
+  font-size: var(--gl-font-size-base);
+  font-weight: 600;
+  margin-bottom: var(--gl-spacing-1);
+  align-self: flex-end;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mission-card__reward-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.mission-card__reward-badge--points {
+  background: linear-gradient(135deg, #2C2C2E, #1C1C1E);
+  color: #FFD700;
+}
+
+.mission-card__reward-badge--credits {
+  background: linear-gradient(135deg, #2C2C2E, #1C1C1E);
+  color: #5AC8FA;
+}
+
+.mission-card__reward-icon {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .mission-card__reward-value {
-  font-size: var(--gl-font-size-lg);
+  font-size: var(--gl-font-size-base);
   font-weight: 700;
   line-height: 1;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-.mission-card__reward-label {
-  font-size: 1.25rem;
-  font-weight: 500;
-  opacity: 0.95;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-  transition: transform 0.2s ease;
-}
-
-.mission-card__reward:hover .mission-card__reward-label {
-  transform: scale(1.1);
 }
 
 .mission-card__image-placeholder {
@@ -358,15 +370,16 @@
 }
 
 .mission-list .mission-card__reward-value {
-  font-size: var(--gl-font-size-base);
+  font-size: var(--gl-font-size-xs);
 }
 
-.mission-list .mission-card__reward-label {
-  font-size: 1rem;
+.mission-list .mission-card__reward-icon {
+  font-size: 0.75rem;
 }
 
-.mission-list .mission-card__reward {
-  gap: var(--gl-spacing-1);
+.mission-list .mission-card__reward-badge {
+  padding: var(--gl-spacing-1) var(--gl-spacing-2);
+  font-size: var(--gl-font-size-xs);
 }
 
 .mission-list .mission-card__content {
@@ -421,15 +434,16 @@
   }
   
   .mission-card__reward-value {
-    font-size: var(--gl-font-size-base);
+    font-size: var(--gl-font-size-sm);
   }
   
-  .mission-card__reward-label {
-    font-size: 1rem;
+  .mission-card__reward-icon {
+    font-size: 0.875rem;
   }
   
-  .mission-card__reward {
-    gap: var(--gl-spacing-1);
+  .mission-card__reward-badge {
+    padding: var(--gl-spacing-1) var(--gl-spacing-2);
+    font-size: var(--gl-font-size-sm);
   }
 }
 

@@ -621,14 +621,24 @@
     position: absolute;
     bottom: var(--gl-spacing-3);
     right: var(--gl-spacing-3);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    background: linear-gradient(135deg, #2C2C2E, #1C1C1E);
+    color: #5AC8FA;
+    padding: var(--gl-spacing-2) var(--gl-spacing-3);
+    border-radius: 1.25rem;
+    font-size: var(--gl-font-size-base);
     font-weight: 600;
     z-index: 3;
     backdrop-filter: blur(4px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gl-spacing-1);
+}
+
+.reward-card__credits-overlay:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Responsive Design */
@@ -675,6 +685,12 @@
     .rewards-progress__stats {
         flex-direction: column;
         gap: var(--gl-spacing-3);
+    }
+    
+    .reward-card__credits-overlay {
+        padding: var(--gl-spacing-1) var(--gl-spacing-2);
+        font-size: var(--gl-font-size-sm);
+        border-radius: 1rem;
     }
 }
 

@@ -110,12 +110,12 @@ class MissionManager {
                         `<div class="mission-card__image-placeholder">${this.getMissionIcon(mission.category)}</div>`
                     }
                     <div class="mission-card__rewards-overlay">
-                        <div class="mission-card__reward">
-                            <span class="mission-card__reward-label">⭐</span>
+                        <div class="mission-card__reward-badge mission-card__reward-badge--points">
+                            <span class="mission-card__reward-icon">⭐</span>
                             <span class="mission-card__reward-value">${mission.reward?.points || 0}</span>
                         </div>
-                        <div class="mission-card__reward">
-                            <span class="mission-card__reward-label">💎</span>
+                        <div class="mission-card__reward-badge mission-card__reward-badge--credits">
+                            <span class="mission-card__reward-icon">💎</span>
                             <span class="mission-card__reward-value">${mission.reward?.credits || 0}</span>
                         </div>
                     </div>

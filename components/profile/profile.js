@@ -376,13 +376,13 @@ class ProfileComponent {
                         <span class="profile-level__badge">${this.data.levelInfo.name}</span>
                     </div>
                     <div class="profile-stats-header">
-                        <div class="profile-stat-header">
-                            <span class="profile-stat-header__icon">⭐</span>
-                            <span class="profile-stat-header__value">${this.data.points}</span>
+                        <div class="profile-stat-badge profile-stat-badge--points">
+                            <span class="profile-stat-badge__icon">⭐</span>
+                            <span class="profile-stat-badge__value">${this.data.points}</span>
                         </div>
-                        <div class="profile-stat-header">
-                            <span class="profile-stat-header__icon">💎</span>
-                            <span class="profile-stat-header__value">${this.data.credits}</span>
+                        <div class="profile-stat-badge profile-stat-badge--credits">
+                            <span class="profile-stat-badge__icon">💎</span>
+                            <span class="profile-stat-badge__value">${this.data.credits}</span>
                         </div>
                     </div>
                     <div class="profile-progress">

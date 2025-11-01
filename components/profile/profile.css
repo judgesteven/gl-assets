@@ -156,39 +156,62 @@
     align-items: flex-end;
 }
 
-.profile-stat-header {
-    display: flex;
+.profile-stat-badge {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--gl-spacing-2);
+    padding: var(--gl-spacing-2) var(--gl-spacing-3);
+    border-radius: 1.25rem;
+    font-size: var(--gl-font-size-base);
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.profile-stat-header__icon {
-    font-size: 1.25rem;
+.profile-stat-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.profile-stat-header__value {
-    font-size: 1.25rem;
+.profile-stat-badge--points {
+    background: linear-gradient(135deg, #2C2C2E, #1C1C1E);
+    color: #FFD700;
+}
+
+.profile-stat-badge--credits {
+    background: linear-gradient(135deg, #2C2C2E, #1C1C1E);
+    color: #5AC8FA;
+}
+
+.profile-stat-badge__icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.profile-stat-badge__value {
+    font-size: var(--gl-font-size-base);
     font-weight: 700;
-    color: white;
+    line-height: 1;
 }
 
 @media (min-width: 1200px) {
-    .profile-stat-header__icon {
-        font-size: 1.5rem;
+    .profile-stat-badge__icon {
+        font-size: 1.125rem;
     }
     
-    .profile-stat-header__value {
-        font-size: 1.5rem;
+    .profile-stat-badge__value {
+        font-size: var(--gl-font-size-lg);
     }
 }
 
 @media (min-width: 1600px) {
-    .profile-stat-header__icon {
-        font-size: 1.75rem;
+    .profile-stat-badge__icon {
+        font-size: 1.25rem;
     }
     
-    .profile-stat-header__value {
-        font-size: 1.75rem;
+    .profile-stat-badge__value {
+        font-size: var(--gl-font-size-xl);
     }
 }
 
@@ -642,5 +665,19 @@
     
     .profile-achievement {
         padding: var(--gl-spacing-4);
+    }
+    
+    .profile-stat-badge {
+        padding: var(--gl-spacing-1) var(--gl-spacing-2);
+        font-size: var(--gl-font-size-sm);
+        border-radius: 1rem;
+    }
+    
+    .profile-stat-badge__icon {
+        font-size: 0.875rem;
+    }
+    
+    .profile-stat-badge__value {
+        font-size: var(--gl-font-size-sm);
     }
 }
