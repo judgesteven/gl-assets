@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameLayer Assets</title>
+    <title>GameLayer Demo</title>
     <meta name="description" content="On this page we provide a few ready-made assets that we hope will help you get started using GameLayer. All of the assets here are connected to a GameLayer account and are fetching data directly using our API. They should provide a good reference on how to integrate our API into your own project. Remember to use your own unique API key and account credentials. GameLayer's API. Link to GitHub: https://github.com/judgesteven/gl-assets">
     
     <!-- Shared Design System -->
@@ -63,6 +63,13 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: var(--gl-spacing-4);
+        }
+
+        /* Event Buttons Container */
+        .event-buttons-container {
+            display: flex;
+            gap: var(--gl-spacing-3);
+            align-items: center;
         }
 
 
@@ -197,9 +204,9 @@
     <div class="demo-container">
         <!-- Demo Header -->
         <header class="demo-header">
-            <h1 class="demo-title">GameLayer Assets</h1>
+            <h1 class="demo-title">GameLayer Demo</h1>
             <p class="demo-subtitle">
-                On this page we provide a few ready-made assets that we hope will help you get started using GameLayer. All of the assets here are connected to a GameLayer account and are fetching data directly using our API. They should provide a good reference on how to integrate our API into your own project. Remember to use your own unique API key and account credentials. <a href="https://github.com/judgesteven/gl-assets" target="_blank" rel="noopener noreferrer">Link to GitHub</a>
+                Welcome to a simple demo running on top of GameLayer ... The mechanics used here are connected to and fetching data from our API. Feel free to download and use them as you wish to help you get started with GameLayer. Remember to use your own unique API key and account credentials. <a href="https://github.com/judgesteven/gl-assets" target="_blank" rel="noopener noreferrer">Link to GitHub</a>
             </p>
         </header>
 
@@ -232,9 +239,17 @@
         <section class="demo-section">
             <div class="demo-section__header">
                 <h2 class="demo-section__title">🚀 Missions</h2>
-                <button id="event-complete-btn" class="event-complete-btn">
-                    Complete Event
-                </button>
+                <div class="event-buttons-container">
+                    <button id="event-complete-btn-1" class="event-complete-btn">
+                        Complete Event 1
+                    </button>
+                    <button id="event-complete-btn-2" class="event-complete-btn">
+                        Complete Event 2
+                    </button>
+                    <button id="event-complete-btn-3" class="event-complete-btn">
+                        Complete Event 3
+                    </button>
+                </div>
             </div>
             <div class="missions-container" id="section-missions">
                 <!-- Missions will be loaded dynamically from API -->
@@ -453,48 +468,71 @@
                 window.leaderboardComponent = leaderboard;
                 window.rewardsComponent = rewards;
                 
-                // Initialize event complete button functionality
-                const eventCompleteBtn = document.getElementById('event-complete-btn');
-                if (eventCompleteBtn) {
-                    eventCompleteBtn.addEventListener('click', async () => {
-                        try {
-                            // Disable button and show loading state
-                            eventCompleteBtn.disabled = true;
-                            eventCompleteBtn.classList.add('event-complete-btn--loading');
-                            
-                            // Call the API to complete the event
-                            const result = await api.completeEvent('event-hidden');
-                            
-                            // Show success notification
-                            alert('Event completed successfully! Loading latest data...');
-                            
-                            // Use app's refresh method to reload components
+                // Initialize event complete buttons functionality
+                const eventIds = ['event-one', 'event-two', 'event-three'];
+                const eventCompleteBtns = [
+                    document.getElementById('event-complete-btn-1'),
+                    document.getElementById('event-complete-btn-2'),
+                    document.getElementById('event-complete-btn-3')
+                ];
+
+                eventCompleteBtns.forEach((btn, index) => {
+                    if (btn) {
+                        btn.addEventListener('click', async () => {
                             try {
-                                if (window.gameLayerApp) {
-                                    await window.gameLayerApp.refreshAllSections();
-                                } else {
-                                    // Fallback to direct component loading
-                                    await Promise.all([
-                                        profile.load(),
-                                        leaderboard.load(),
-                                        rewards.load()
-                                    ]);
+                                // Disable button and show loading state
+                                btn.disabled = true;
+                                btn.classList.add('event-complete-btn--loading');
+                                
+                                // Get current player ID
+                                const currentPlayerId = api.config.defaultPlayer;
+                                if (!currentPlayerId) {
+                                    alert('Please select a player first');
+                                    btn.disabled = false;
+                                    btn.classList.remove('event-complete-btn--loading');
+                                    return;
                                 }
+
+                                // Call the API to complete the event
+                                const eventId = eventIds[index];
+                                const result = await api.completeEvent(eventId, currentPlayerId);
+                                
+                                // Show success notification
+                                alert(`Event ${index + 1} completed successfully! Updating mission progress...`);
+                                
+                                // Update mission progress bars
+                                if (window.missionComponent) {
+                                    await window.missionComponent.updateAllMissionProgress(currentPlayerId);
+                                }
+                                
+                                // Refresh other components to show updated data
+                                try {
+                                    if (window.gameLayerApp) {
+                                        await window.gameLayerApp.refreshAllSections();
+                                    } else {
+                                        // Fallback to direct component loading
+                                        await Promise.all([
+                                            profile.load(),
+                                            leaderboard.load(),
+                                            rewards.load()
+                                        ]);
+                                    }
+                                } catch (error) {
+                                    console.error('Failed to reload components:', error);
+                                }
+                                
                             } catch (error) {
-                                console.error('Failed to reload components:', error);
+                                // Show error message
+                                console.error(`Failed to complete event ${index + 1}:`, error);
+                                alert(`Failed to complete event ${index + 1}. Please try again.`);
+                            } finally {
+                                // Re-enable button and remove loading state
+                                btn.disabled = false;
+                                btn.classList.remove('event-complete-btn--loading');
                             }
-                            
-                        } catch (error) {
-                            // Show error message
-                            console.error('Failed to complete event:', error);
-                            alert('Failed to complete event. Please try again.');
-                        } finally {
-                            // Re-enable button and remove loading state
-                            eventCompleteBtn.disabled = false;
-                            eventCompleteBtn.classList.remove('event-complete-btn--loading');
-                        }
-                    });
-                }
+                        });
+                    }
+                });
 
                 // Initialize refresh leaderboard button functionality
                 const refreshLeaderboardBtn = document.getElementById('refresh-leaderboard-btn');

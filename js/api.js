@@ -70,6 +70,13 @@ class GameLayerAPI {
         return this.request(`/missions/${missionId}?account=${this.config.accountId}&player=${playerId}`);
     }
 
+    async getPlayerMissionProgress(playerId, missionId) {
+        if (!playerId) {
+            throw new Error('Player ID is required');
+        }
+        return this.request(`/players/${playerId}/missions/${missionId}?account=${this.config.accountId}`);
+    }
+
     async getPlayerMissions(playerId) {
         if (!playerId) {
             throw new Error('Player ID is required');

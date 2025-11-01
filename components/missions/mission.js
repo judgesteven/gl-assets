@@ -317,6 +317,70 @@ class MissionManager {
         });
     }
 
+    // Update a specific mission's progress
+    updateMissionProgress(missionId, progressData) {
+        const missionCard = this.container.querySelector(`[data-mission-id="${missionId}"]`);
+        if (!missionCard) {
+            console.warn(`[MissionManager] Mission card not found for ID: ${missionId}`);
+            return;
+        }
+
+        // Extract progress from various possible response structures
+        let eventData = null;
+        
+        // Try progress.events (API response structure: {player: {...}, progress: {events: [...]}})
+        if (progressData.progress?.events && progressData.progress.events.length > 0) {
+            eventData = progressData.progress.events[0];
+        }
+        // Try events array directly in response
+        else if (progressData.events && progressData.events.length > 0) {
+            eventData = progressData.events[0];
+        }
+        // Try objectives.events (old format)
+        else if (progressData.objectives?.events?.[0]) {
+            eventData = progressData.objectives.events[0];
+        }
+        // Try progress object directly if it contains count/currentCount
+        else if (progressData.progress && (progressData.progress.currentCount !== undefined || progressData.progress.count !== undefined)) {
+            eventData = progressData.progress;
+        }
+
+        if (!eventData) {
+            console.warn(`[MissionManager] No event data found for mission: ${missionId}`);
+            return;
+        }
+
+        const currentCount = eventData.currentCount || eventData.currentcount || 0;
+        const totalCount = eventData.count || 1;
+        const progressPercentage = totalCount > 0 ? (currentCount / totalCount) * 100 : 0;
+        const progressText = `${currentCount}/${totalCount}`;
+
+        // Update progress bar
+        const progressFill = missionCard.querySelector('.mission-card__progress-fill');
+        const progressValue = missionCard.querySelector('.mission-card__progress-value');
+        
+        if (progressFill) {
+            progressFill.style.width = `${progressPercentage}%`;
+        }
+        
+        if (progressValue) {
+            progressValue.textContent = progressText;
+        }
+
+        // Also update the mission data in our local array
+        const missionIndex = this.missions.findIndex(m => m.id === missionId);
+        if (missionIndex !== -1) {
+            // Update the mission data structure to match what we expect
+            if (!this.missions[missionIndex].objectives) {
+                this.missions[missionIndex].objectives = {};
+            }
+            if (!this.missions[missionIndex].objectives.events) {
+                this.missions[missionIndex].objectives.events = [];
+            }
+            this.missions[missionIndex].objectives.events[0] = eventData;
+        }
+    }
+
     handlePrimaryAction(card) {
         const missionId = card.dataset.missionId;
         
@@ -471,6 +535,61 @@ class MissionComponent {
             return this.missionManager.missions;
         }
         return [];
+    }
+
+    // Update mission progress from API
+    async updateMissionProgress(missionId, playerId = null) {
+        try {
+            const currentPlayerId = playerId || this.api.config.defaultPlayer;
+            if (!currentPlayerId) {
+                console.warn('[MissionComponent] No player ID available to update mission progress');
+                return;
+            }
+
+            if (!this.missionManager) {
+                console.warn('[MissionComponent] Mission manager not initialized');
+                return;
+            }
+
+            // Fetch updated mission progress from API
+            const progressData = await this.api.getPlayerMissionProgress(currentPlayerId, missionId);
+            
+            // Update the mission card with new progress
+            this.missionManager.updateMissionProgress(missionId, progressData);
+        } catch (error) {
+            console.error(`[MissionComponent] Failed to update mission progress for ${missionId}:`, error);
+        }
+    }
+
+    // Update all mission progresses
+    async updateAllMissionProgress(playerId = null) {
+        const currentPlayerId = playerId || this.api.config.defaultPlayer;
+        
+        if (!currentPlayerId) {
+            console.warn('[MissionComponent] No player ID available to update mission progress');
+            return;
+        }
+
+        if (!this.missionManager) {
+            console.warn('[MissionComponent] Mission manager not initialized');
+            return;
+        }
+
+        // Get actual mission IDs from loaded missions instead of hardcoded values
+        const loadedMissions = this.missionManager.missions || [];
+        const missionIds = loadedMissions.map(m => m.id);
+
+        if (missionIds.length === 0) {
+            console.warn('[MissionComponent] No missions loaded to update');
+            // Try to reload missions first
+            await this.loadForPlayer(currentPlayerId);
+            return;
+        }
+
+        // Update all missions in parallel
+        await Promise.all(
+            missionIds.map(missionId => this.updateMissionProgress(missionId, currentPlayerId))
+        );
     }
 }
 
