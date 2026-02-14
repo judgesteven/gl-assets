@@ -13,10 +13,17 @@
  * @license MIT
  */
 
+function getDefaultBaseURL() {
+    if (typeof window === 'undefined') return 'https://api.gamelayer.co/api/v0';
+    const h = window.location.hostname;
+    const useProxy = h === 'localhost' || h === '127.0.0.1' || h.endsWith('.vercel.app');
+    return useProxy ? '/api/v0' : 'https://api.gamelayer.co/api/v0';
+}
+
 class GameLayerAPI {
     constructor(config = {}) {
         this.config = {
-            baseURL: 'https://api.gamelayer.co/api/v0',
+            baseURL: getDefaultBaseURL(),
             apiKey: 'f0089f32c290c458f0db55514239af44',
             defaultPlayer: null, // No hardcoded default
             accountId: 'gl-assets',
