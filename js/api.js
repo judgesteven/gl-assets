@@ -256,10 +256,4 @@ if (typeof module !== 'undefined' && module.exports) {
 // Make GameLayerAPI globally available for browser usage
 if (typeof window !== 'undefined') {
     window.GameLayerAPI = GameLayerAPI;
-    const IMAGE_BASE = 'https://images.gamelayer.co/glimages/gl-assets';
-    window.resolveImageUrl = function(url) {
-        if (!url) return '';
-        if (/^https?:\/\//i.test(url)) return url;
-        return IMAGE_BASE + (url.startsWith('/') ? url : '/' + url);
-    };
 }

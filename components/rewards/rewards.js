@@ -131,7 +131,7 @@ class RewardsComponent {
                             <div class="reward-card reward-card--featured" data-reward-id="${reward.id}">
                                 <div class="reward-card__image">
                                     ${reward.imgUrl ? 
-                                        `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(reward.imgUrl) : reward.imgUrl}" alt="${reward.name}" class="reward-card__real-image" onerror="this.onerror=null;this.style.display='none';var n=this.nextElementSibling;if(n)n.style.display='block'"><div class="reward-card__image-placeholder" style="display:none">${reward.icon}</div>` : 
+                                        `<img src="${reward.imgUrl}" alt="${reward.name}" class="reward-card__real-image">` : 
                                         `<div class="reward-card__image-placeholder">${reward.icon}</div>`
                                     }
                                     <div class="reward-card__category-overlay">${reward.category}</div>

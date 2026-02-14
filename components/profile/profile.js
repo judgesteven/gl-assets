@@ -66,9 +66,8 @@ class ProfileComponent {
             
         } catch (error) {
             console.error('[Profile Component] Failed to load profile:', error);
-            console.error('[Profile Component] Load error details:', error);
-            console.error('[Profile Component] Error stack:', error.stack);
-            this.renderError('Failed to load profile data');
+            const is404 = error && error.status === 404;
+            this.renderError(is404 ? 'No profile found for this player.' : 'Failed to load profile data');
         }
     }
 
@@ -366,7 +365,7 @@ class ProfileComponent {
             <div class="profile-header">
                 <div class="profile-avatar">
                     ${this.data.imgUrl ? 
-                        `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(this.data.imgUrl) : this.data.imgUrl}" alt="${this.data.name}" class="profile-avatar__image" onerror="this.onerror=null;this.style.display='none';var p=this.nextElementSibling;if(p)p.style.display='block'"><div class="profile-avatar__placeholder" style="display:none">${this.data.name.charAt(0).toUpperCase()}</div>` :
+                        `<img src="${this.data.imgUrl}" alt="${this.data.name}" class="profile-avatar__image">` :
                         `<div class="profile-avatar__placeholder">${this.data.name.charAt(0).toUpperCase()}</div>`
                     }
                 </div>
@@ -409,7 +408,7 @@ class ProfileComponent {
                         <div class="profile-achievement" data-achievement-id="${achievement.id}">
                             <div class="profile-achievement__image" style="opacity: ${imageOpacity};">
                                 ${achievement.imgUrl ? 
-                                    `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(achievement.imgUrl) : achievement.imgUrl}?t=${Date.now()}" alt="${achievement.name}" class="profile-achievement__img" onerror="this.onerror=null;this.style.display='none'">` :
+                                    `<img src="${achievement.imgUrl}?t=${Date.now()}" alt="${achievement.name}" class="profile-achievement__img">` :
                                     ''
                                 }
                                 ${achievement.category && achievement.category !== 'Achievement' ? 

@@ -30,7 +30,8 @@ class LeaderboardComponent {
             this.render();
         } catch (error) {
             console.error('[Leaderboard Component] Failed to load leaderboard:', error);
-            this.renderError('Failed to load leaderboard data');
+            const is404 = error && error.status === 404;
+            this.renderError(is404 ? 'No leaderboard data available for this account.' : 'Failed to load leaderboard data');
         }
     }
 
@@ -81,7 +82,7 @@ class LeaderboardComponent {
                                     <div class="leaderboard-row__player">
                                         <div class="leaderboard-row__avatar">
                                             ${player.avatar && player.avatar !== '👤' ? 
-                                                `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(player.avatar) : player.avatar}" alt="${player.name}" class="leaderboard-row__avatar-img" onerror="this.onerror=null;this.style.display='none';var n=this.nextElementSibling;if(n)n.style.display='inline'"><span class="leaderboard-row__placeholder" style="display:none">👤</span>` :
+                                                `<img src="${player.avatar}" alt="${player.name}" class="leaderboard-row__avatar-img">` :
                                                 `<span class="leaderboard-row__placeholder">${player.avatar || '👤'}</span>`
                                             }
                                         </div>
