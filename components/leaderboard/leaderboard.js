@@ -81,7 +81,7 @@ class LeaderboardComponent {
                                     <div class="leaderboard-row__player">
                                         <div class="leaderboard-row__avatar">
                                             ${player.avatar && player.avatar !== '👤' ? 
-                                                `<img src="${player.avatar}" alt="${player.name}" class="leaderboard-row__avatar-img">` :
+                                                `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(player.avatar) : player.avatar}" alt="${player.name}" class="leaderboard-row__avatar-img" onerror="this.onerror=null;this.style.display='none';var n=this.nextElementSibling;if(n)n.style.display='inline'"><span class="leaderboard-row__placeholder" style="display:none">👤</span>` :
                                                 `<span class="leaderboard-row__placeholder">${player.avatar || '👤'}</span>`
                                             }
                                         </div>

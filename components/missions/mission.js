@@ -106,7 +106,7 @@ class MissionManager {
             <div class="mission-card" data-mission-id="${mission.id}">
                 <div class="mission-card__image" style="background: linear-gradient(135deg, #007AFF, #5AC8FA);">
                     ${mission.imgUrl ? 
-                        `<img src="${mission.imgUrl}" alt="${mission.name}" class="mission-card__real-image">` : 
+                        `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(mission.imgUrl) : mission.imgUrl}" alt="${mission.name}" class="mission-card__real-image" onerror="this.onerror=null;this.style.display='none';var n=this.nextElementSibling;if(n)n.style.display='block'"><div class="mission-card__image-placeholder" style="display:none">${this.getMissionIcon(mission.category)}</div>` : 
                         `<div class="mission-card__image-placeholder">${this.getMissionIcon(mission.category)}</div>`
                     }
                     <div class="mission-card__rewards-overlay">

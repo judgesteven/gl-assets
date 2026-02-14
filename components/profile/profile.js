@@ -366,7 +366,7 @@ class ProfileComponent {
             <div class="profile-header">
                 <div class="profile-avatar">
                     ${this.data.imgUrl ? 
-                        `<img src="${this.data.imgUrl}" alt="${this.data.name}" class="profile-avatar__image">` :
+                        `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(this.data.imgUrl) : this.data.imgUrl}" alt="${this.data.name}" class="profile-avatar__image" onerror="this.onerror=null;this.style.display='none';var p=this.nextElementSibling;if(p)p.style.display='block'"><div class="profile-avatar__placeholder" style="display:none">${this.data.name.charAt(0).toUpperCase()}</div>` :
                         `<div class="profile-avatar__placeholder">${this.data.name.charAt(0).toUpperCase()}</div>`
                     }
                 </div>
@@ -409,7 +409,7 @@ class ProfileComponent {
                         <div class="profile-achievement" data-achievement-id="${achievement.id}">
                             <div class="profile-achievement__image" style="opacity: ${imageOpacity};">
                                 ${achievement.imgUrl ? 
-                                    `<img src="${achievement.imgUrl}?t=${Date.now()}" alt="${achievement.name}" class="profile-achievement__img">` :
+                                    `<img src="${typeof resolveImageUrl === 'function' ? resolveImageUrl(achievement.imgUrl) : achievement.imgUrl}?t=${Date.now()}" alt="${achievement.name}" class="profile-achievement__img" onerror="this.onerror=null;this.style.display='none'">` :
                                     ''
                                 }
                                 ${achievement.category && achievement.category !== 'Achievement' ? 

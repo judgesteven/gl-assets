@@ -62,7 +62,8 @@ class GameLayerAPI {
                     errorText = await response.text();
                 }
                 
-                const errorMessage = errorData?.message || errorData?.error || errorText || response.statusText;
+                let errorMessage = errorData?.message ?? errorData?.error ?? errorText ?? response.statusText;
+                if (typeof errorMessage === 'object') errorMessage = JSON.stringify(errorMessage);
                 const error = new Error(`API request failed: ${response.status} ${response.statusText} - ${errorMessage}`);
                 error.status = response.status;
                 error.response = errorData;
@@ -255,4 +256,10 @@ if (typeof module !== 'undefined' && module.exports) {
 // Make GameLayerAPI globally available for browser usage
 if (typeof window !== 'undefined') {
     window.GameLayerAPI = GameLayerAPI;
+    const IMAGE_BASE = 'https://images.gamelayer.co/glimages/gl-assets';
+    window.resolveImageUrl = function(url) {
+        if (!url) return '';
+        if (/^https?:\/\//i.test(url)) return url;
+        return IMAGE_BASE + (url.startsWith('/') ? url : '/' + url);
+    };
 }
