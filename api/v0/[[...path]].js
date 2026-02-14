@@ -13,9 +13,25 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  const path = req.query.path;
-  const pathStr = Array.isArray(path) ? path.join('/') : (path || '');
-  const query = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+  // Path: from URL path first (/api/v0/players?x=1 -> "players"), else from query (Vercel may send as [...path]=players)
+  const prefix = '/api/v0';
+  const pathPart = (req.url || '').split('?')[0];
+  let pathStr = pathPart.startsWith(prefix)
+    ? pathPart.slice(prefix.length).replace(/^\/+|\/+$/g, '')
+    : '';
+  if (!pathStr && req.query) {
+    const q = req.query['path'] ?? req.query['[...path]'];
+    pathStr = Array.isArray(q) ? q.join('/') : (q || '');
+  }
+  let query = (req.url && req.url.includes('?')) ? req.url.split('?')[1] : '';
+  if (query) {
+    const params = new URLSearchParams(query);
+    params.delete('path');
+    params.delete('[...path]');
+    query = params.toString() ? '?' + params.toString() : '';
+  } else {
+    query = '';
+  }
   const url = `${UPSTREAM}/api/v0/${pathStr}${query}`;
 
   const headers = {
